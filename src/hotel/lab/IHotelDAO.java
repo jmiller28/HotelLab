@@ -11,8 +11,8 @@ public interface IHotelDAO {
 
     List<Hotel> getAllHotels() throws Exception;
     
-    void save(Hotel hotel) throws SQLException, Exception;
+    void saveHotels(Hotel hotel) throws SQLException, Exception;
     
-    void deleteHotel(String tableName, String whereField, Object whereValue) 
+    void deleteHotels(String tableName, String whereField, Object whereValue) 
             throws SQLException;
 }

@@ -2,6 +2,7 @@ package hotel.lab;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -21,22 +22,29 @@ public class HotelService {
         return hotelDAO.getAllHotels();
     }
 
-    public final void save(Hotel hotel) throws SQLException, Exception {   
-        hotelDAO.save(hotel);
+    //not complete
+    public final Map getHotelById(String tableName, String primaryKeyField,
+            Object keyValue) throws SQLException {
+
+        return null;
     }
-    
-    public final void deleteHotel(String tableName, String whereField,
+
+    public final void deleteHotels(String tableName, String whereField,
             Object whereValue) throws SQLException {
-        hotelDAO.deleteHotel(tableName, whereField, whereValue);
+        hotelDAO.deleteHotels(tableName, whereField, whereValue);
     }
+
+    public final void saveHotel(Hotel hotel) throws SQLException, Exception {
+        hotelDAO.saveHotels(hotel);
+    }
+
     public static void main(String[] args) throws Exception {
         HotelService hotelService = new HotelService();
-        
+
 //        Hotel hotel = new Hotel("John's Hotel","","","","","");       
 //        hotelService.save(hotel);
-        
         System.out.println(hotelService.getAllHotels());
-        
+
 //        hotelService.deleteHotel("hotel", "hotel_name", "Test");
     }
 }

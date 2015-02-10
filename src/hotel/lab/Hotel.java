@@ -3,21 +3,22 @@ package hotel.lab;
 import java.util.Objects;
 
 /**
- * Entity class. This class is a representation of the Hotel table. The class 
- * name is similar to the table name and the class properties are similar to the 
- * table columns. It is used to provide structured data to/from database 
+ * Entity class. This class is a representation of the Hotel table. The class
+ * name is similar to the table name and the class properties are similar to the
+ * table columns. It is used to provide structured data to/from database
  * operation code.
  *
  * @author John
  */
 public class Hotel {
-  private Long hotelId;
-  private String hotelName;
-  private String streetAddress;
-  private String city;
-  private String state;
-  private String postalCode;
-  private String notes;
+
+    private Long hotelId;
+    private String hotelName;
+    private String streetAddress;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String notes;
 
     public Hotel() {
     }
@@ -26,7 +27,7 @@ public class Hotel {
         this.hotelId = hotelId;
     }
 
-    public Hotel(String hotelName, String streetAddress, String city, 
+    public Hotel(String hotelName, String streetAddress, String city,
             String state, String postalCode, String notes) {
         this.hotelName = hotelName;
         this.streetAddress = streetAddress;
@@ -116,10 +117,10 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" + "hotelId=" + hotelId + ", hotelName=" + hotelName + 
-                ", streetAddress=" + streetAddress + ", city=" + city + 
-                ", state=" + state + ", postalCode=" + postalCode + 
-                ", notes=" + notes + '}';
+        return "Hotel{" + "hotelId=" + hotelId + ", hotelName=" + hotelName
+                + ", streetAddress=" + streetAddress + ", city=" + city
+                + ", state=" + state + ", postalCode=" + postalCode
+                + ", notes=" + notes + '}';
     }
-  
+
 }

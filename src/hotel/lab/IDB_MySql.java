@@ -10,9 +10,9 @@ import java.util.Map;
  */
 public interface IDB_MySql {
 
-    void closeConnection() throws SQLException;
+//    void closeConnection() throws SQLException;
 
-    int insertRecord(String tableName, List colDescriptors, List colValues) 
+    int insertRecords(String tableName, List colDescriptors, List colValues) 
             throws SQLException ;
     
     List<Map<String, Object>> getAllRecords(String tableName) 

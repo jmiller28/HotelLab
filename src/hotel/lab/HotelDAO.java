@@ -64,7 +64,8 @@ public class HotelDAO implements IHotelDAO {
         return records;
     }
 
-    public final Map getRecordById(String tableName, String primaryKeyField,
+    //not complete
+    public final Map getHotelById(String tableName, String primaryKeyField,
             Object keyValue) throws SQLException {
         
         
@@ -72,8 +73,22 @@ public class HotelDAO implements IHotelDAO {
         return null;
     }
     
+    
     @Override
-    public void save(Hotel hotel) throws SQLException, Exception {
+    public void deleteHotels(String tableName, String whereField,
+            Object whereValue) throws SQLException {
+        try {
+            db.deleteRecords(tableName, whereField, whereValue);
+        } catch (SQLException sqle) {
+            throw sqle;
+
+        } catch (Exception e) {
+            throw e;
+        }
+    }
+    
+    @Override
+    public void saveHotels(Hotel hotel) throws SQLException, Exception {
         HotelDAO dao = new HotelDAO(new DB_MySql());
         dao.openConnection();
         
@@ -97,7 +112,7 @@ public class HotelDAO implements IHotelDAO {
 
         try {
             if (hotel.getHotelId() == null) {
-                db.insertRecord(tableName, colDescriptors, colValues);
+                db.insertRecords(tableName, colDescriptors, colValues);
             } else {
                 db.updateRecords(
                         tableName, colDescriptors,
@@ -110,19 +125,6 @@ public class HotelDAO implements IHotelDAO {
             throw e;
         }
 
-    }
-
-    @Override
-    public void deleteHotel(String tableName, String whereField,
-            Object whereValue) throws SQLException {
-        try {
-            db.deleteRecords(tableName, whereField, whereValue);
-        } catch (SQLException sqle) {
-            throw sqle;
-
-        } catch (Exception e) {
-            throw e;
-        }
     }
 
     public static void main(String[] args) throws Exception {
@@ -139,7 +141,7 @@ public class HotelDAO implements IHotelDAO {
         Hotel hotel = new Hotel(hotelName, streetAddress, city, state,
                 postalCode, notes);
 //        dao.openConnection();
-        dao.save(hotel);
+        dao.saveHotels(hotel);
 //        dao.deleteHotel("hotel", "hotel_name", "Hotel California");
 //        for (Hotel hotel : records) {
 //            System.out.println(hotel);

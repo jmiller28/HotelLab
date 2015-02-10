@@ -33,20 +33,20 @@ public class DB_MySql implements IDB_MySql {
         conn = DriverManager.getConnection(url, username, password);
     }
 
-    @Override
-    public final void closeConnection() throws SQLException {
-        try {
-            conn.close();
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-    }
+//    @Override
+//    public final void closeConnection() throws SQLException {
+//        try {
+//            conn.close();
+//        } catch (SQLException sqle) {
+//            throw sqle;
+//        }
+//    }
 
     @Override
     public final List<Map<String, Object>> getAllRecords(String tableName)
             throws SQLException {
 
-        List<Map<String, Object>> results = new ArrayList<>();
+        List<Map<String, Object>> records = new ArrayList<>();
         String sql = "select * from " + tableName;
 
         try {
@@ -60,7 +60,7 @@ public class DB_MySql implements IDB_MySql {
                 for (int i = 1; i < colCount; i++) {
                     record.put(metaData.getColumnName(i), rs.getObject(i));
                 }
-                results.add(record);
+                records.add(record);
             }
         } catch (SQLException sqle) {
             throw sqle;
@@ -72,7 +72,7 @@ public class DB_MySql implements IDB_MySql {
                 throw sqle;
             }
         }
-        return results;
+        return records;
     }
 
     @Override
@@ -116,7 +116,7 @@ public class DB_MySql implements IDB_MySql {
     public final int deleteRecords(String tableName, String whereField,
             Object whereValue) throws SQLException {
 
-        int recsDeleted = 0;
+        int recordsDeleted = 0;
 
         try {
             pstmt = buildDeleteStatement(conn, tableName, whereField);
@@ -140,7 +140,7 @@ public class DB_MySql implements IDB_MySql {
                     }
                 }
             }
-            recsDeleted = pstmt.executeUpdate();
+            recordsDeleted = pstmt.executeUpdate();
 
         } catch (SQLException sqle) {
             throw sqle;
@@ -154,7 +154,7 @@ public class DB_MySql implements IDB_MySql {
                 throw sqle;
             }
         }
-        return recsDeleted;
+        return recordsDeleted;
     }
 
     private PreparedStatement buildDeleteStatement(Connection conn_loc,
@@ -177,7 +177,7 @@ public class DB_MySql implements IDB_MySql {
             List colValues, String whereField, Object whereValue)
             throws SQLException, Exception {
 
-        int recsUpdated = 0;
+        int recordsUpdated = 0;
         try {
             pstmt = buildUpdateStatement(conn, tableName, colDescriptors,
                     whereField);
@@ -221,7 +221,7 @@ public class DB_MySql implements IDB_MySql {
                 }
             }
 
-            recsUpdated = pstmt.executeUpdate();
+            recordsUpdated = pstmt.executeUpdate();
 
         } catch (SQLException sqle) {
             throw sqle;
@@ -235,7 +235,7 @@ public class DB_MySql implements IDB_MySql {
                 throw sqle;
             }
         }
-        return recsUpdated;
+        return recordsUpdated;
     }
 
     private PreparedStatement buildUpdateStatement(Connection conn_loc,
@@ -256,10 +256,10 @@ public class DB_MySql implements IDB_MySql {
     }
 
     @Override
-    public final int insertRecord(String tableName, List colDescriptors,
+    public final int insertRecords(String tableName, List colDescriptors,
             List colValues) throws SQLException {
 
-        int recsUpdated = 0;
+        int recordsInserted = 0;
 
         try {
             pstmt = buildInsertStatement(conn, tableName, colDescriptors);
@@ -286,7 +286,7 @@ public class DB_MySql implements IDB_MySql {
                     }
                 }
             }
-            recsUpdated = pstmt.executeUpdate();
+            recordsInserted = pstmt.executeUpdate();
 
         } catch (SQLException sqle) {
             throw sqle;
@@ -300,7 +300,7 @@ public class DB_MySql implements IDB_MySql {
                 throw sqle;
             }
         }
-        return recsUpdated;
+        return recordsInserted;
     }
 
     private PreparedStatement buildInsertStatement(Connection conn_loc,
@@ -323,10 +323,10 @@ public class DB_MySql implements IDB_MySql {
     }
 
     public static void main(String[] args) throws SQLException, ClassNotFoundException, Exception {
-String driverClassName = "com.mysql.jdbc.Driver";
-String url = "jdbc:mysql://localhost:3306/hotel";
-String userName = "admin";
-String password = "admin";
+        String driverClassName = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/hotel";
+        String userName = "admin";
+        String password = "admin";
         DB_MySql db = new DB_MySql();
         db.openConnection(driverClassName, url, userName, password);
 //        List<String> colDescriptors = new ArrayList<>();
@@ -336,7 +336,6 @@ String password = "admin";
 //
 //        colValues.add("99999");
 
-       
         System.out.println(db.getRecordById("hotel", "hotel_id", "1"));
 //        db.updateRecords("hotel", colDescriptors, colValues, "city", "Duluth");
 //        db.insertRecord("hotel", colDescriptors, colValues);
